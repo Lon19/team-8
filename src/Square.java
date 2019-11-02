@@ -4,19 +4,15 @@ import java.awt.event.ActionEvent;
 
 public class Square extends JPanel {
 
-    private int i;
-    private int j;
     private boolean isKey;
     private boolean isPlayer;
     private Maze map;
 
     // Square Constructor containing the location of the square, the piece and the action listener
-    public Square(Maze map, int i, int j, boolean isKey, boolean isPlayer){
-        this.i = i;
-        this.j = j;
-        this.map = map;
+    public Square(String kind, boolean isKey, boolean isPlayer){
         this.isKey = isKey;
         this.isPlayer = isPlayer;
+        setIcon(kind);
     }
 
     public boolean hasKey(){
