@@ -4,23 +4,39 @@ import java.awt.event.*;
 
 public class Maze extends JFrame{
 
-    private JFrame map;
+    private JFrame game;
+    private JPanel map = new JPanel();
 
     public Maze(){
-        map = new JFrame();
-        setFrame();
+        game = new JFrame();
+
         Square[][] squares = new Square[5][5];
+        setFrame(squares);
         setSquares(squares);
 
-        for(int i = 0; i < 5; i++){
+       for(int i = 0; i < 5; i++){
             for(int j = 0; j < 5; j++){
                 map.add(squares[i][j]);
-                map.repaint();
-            }
         }
-        map.setVisible(true);
-       // squares.repaint();
-    }
+        game.setVisible(true);
+        //squares.repaint();
+
+//        map.add(squares[0][0]);
+//        map.add(squares[0][1]);
+//        map.add(squares[1][0]);
+//        map.add(squares[0][3]);
+//        map.add(squares[0][4]);
+//        map.add(squares[1][0]);
+//        map.add(squares[2][0]);
+//        map.add(squares[3][0]);
+//        map.add(squares[4][0]);
+//        map.add(squares[4][0]);
+//        map.add(squares[4][0]);
+//        map.add(squares[4][0]);
+//        map.add(squares[4][0]);
+//        map.add(squares[4][0]);
+//        map.add(squares[4][0]);
+    }}
 
     private void setSquares(Square[][] squares){
         squares[0][0] = new Square("wall", false, false);
@@ -50,12 +66,19 @@ public class Maze extends JFrame{
         squares[4][4] = new Square("wall", false, false);
     }
 
-    private void setFrame(){
-        map.setTitle("Amaze!");
-        map.setLayout(new GridLayout(5, 5));
-        map.setSize(1000,1000);
+    private void setFrame(Square[][] squares){
+        game.setTitle("Amaze!");
+        game.setLayout(new FlowLayout());
+        game.setSize(1000,1000);
        // map.setResizable(false);
-        map.setVisible(true);
-        map.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        game.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+        //map
+        //Container c = new Container();
+        map.setLayout(new GridLayout(5, 5));
+        setSquares(squares);
+        //c.add(map);
+        game.add(map);
+        //game.pack();
     }
 }

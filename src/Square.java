@@ -24,7 +24,7 @@ public class Square extends JPanel {
         catch (IOException e){
             System.out.print(e);
         }
-       this.repaint();
+        this.setSize(100,100);
     }
 
     public boolean hasKey(){
@@ -37,18 +37,29 @@ public class Square extends JPanel {
         }
         else if(isKey){
             //change the path below to something more general
-            Icon image= new ImageIcon("C:\\Users\\Miru\\Desktop\\Projects\\code4good\\resources\\img\\key.jpg");
-            JLabel label = new JLabel(image);
+            BufferedImage keyImage = ImageIO.read(new File("C:\\Users\\Miru\\Desktop\\Projects\\code4good\\resources\\img\\key.jpg"));
+            Image tmp = keyImage.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+            ImageIcon myImg = new ImageIcon(tmp);
+
+            JLabel label = new JLabel(myImg);
             this.add(label);
             this.setVisible(true);
-            System.out.print("blah");
-
         }
         else if(type.equals("path")){
             this.setBackground(Color.orange);
         }
         else {
             System.out.print("blah");
+        }
+
+        if(isPlayer){
+            BufferedImage playerImage = ImageIO.read(new File("C:\\Users\\Miru\\Desktop\\Projects\\code4good\\resources\\img\\player.png"));
+            Image tmp = playerImage.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+            ImageIcon myImg = new ImageIcon(tmp);
+
+            JLabel label = new JLabel(myImg);
+            this.add(label);
+            this.setVisible(true);
         }
     }
 }
