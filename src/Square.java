@@ -18,12 +18,13 @@ public class Square extends JPanel {
     public Square(String kind, boolean isKey, boolean isPlayer){
         this.isKey = isKey;
         this.isPlayer = isPlayer;
-       try {
+        try {
             setBackground(kind);
-       }
+        }
         catch (IOException e){
             System.out.print(e);
         }
+       this.repaint();
     }
 
     public boolean hasKey(){
