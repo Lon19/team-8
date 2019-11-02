@@ -8,6 +8,7 @@ public class Maze extends JFrame implements ActionListener{
     private JPanel map;
     private JPanel controls;
     public Square[][] squares;
+    private boolean foundKey;
 
 
     public Maze(){
@@ -15,6 +16,7 @@ public class Maze extends JFrame implements ActionListener{
         map = new JPanel();
         controls = new JPanel();
         squares = new Square[5][5];
+        //foundKey = false;
         setFrame();
         //setSquares();
         setControls();
@@ -51,31 +53,31 @@ public class Maze extends JFrame implements ActionListener{
     }
 
     private void setSquares(){
-        squares[0][0] = new Square("wall", false, false);
-        squares[0][1] = new Square("path", false, false);
-        squares[0][2] = new Square("wall", false, false);
-        squares[0][3] = new Square("wall", false, false);
-        squares[0][4] = new Square("wall", false, false);
-        squares[1][0] = new Square("wall", false, false);
-        squares[1][1] = new Square("path", false, false);
-        squares[1][2] = new Square("wall", false, false);
-        squares[1][3] = new Square("wall", false, false);
-        squares[1][4] = new Square("wall", false, false);
-        squares[2][0] = new Square("wall", false, false);
-        squares[2][1] = new Square("path", false, false);
-        squares[2][2] = new Square("path", true, false);
-        squares[2][3] = new Square("path", false, false);
-        squares[2][4] = new Square("wall", false, false);
-        squares[3][0] = new Square("wall", false, false);
-        squares[3][1] = new Square("wall", false, false);
-        squares[3][2] = new Square("wall", false, false);
-        squares[3][3] = new Square("path", false, false);
-        squares[3][4] = new Square("wall", false, false);
-        squares[4][0] = new Square("wall", false, false);
-        squares[4][1] = new Square("wall", false, false);
-        squares[4][2] = new Square("wall", false, false);
-        squares[4][3] = new Square("path", false, true);
-        squares[4][4] = new Square("wall", false, false);
+        squares[0][0] = new Square("wall", false, false,false);
+        squares[0][1] = new Square("path", false, false,true);
+        squares[0][2] = new Square("wall", false, false, false);
+        squares[0][3] = new Square("wall", false, false, false);
+        squares[0][4] = new Square("wall", false, false, false);
+        squares[1][0] = new Square("wall", false, false, false);
+        squares[1][1] = new Square("path", false, false, false);
+        squares[1][2] = new Square("wall", false, false, false);
+        squares[1][3] = new Square("wall", false, false, false);
+        squares[1][4] = new Square("wall", false, false, false);
+        squares[2][0] = new Square("wall", false, false, false);
+        squares[2][1] = new Square("path", false, false, false);
+        squares[2][2] = new Square("path", true, false, false);
+        squares[2][3] = new Square("path", false, false, false);
+        squares[2][4] = new Square("wall", false, false, false);
+        squares[3][0] = new Square("wall", false, false, false);
+        squares[3][1] = new Square("wall", false, false, false);
+        squares[3][2] = new Square("wall", false, false, false);
+        squares[3][3] = new Square("path", false, false,false);
+        squares[3][4] = new Square("wall", false, false, false);
+        squares[4][0] = new Square("wall", false, false, false);
+        squares[4][1] = new Square("wall", false, false, false);
+        squares[4][2] = new Square("wall", false, false, false);
+        squares[4][3] = new Square("path", false, true, false);
+        squares[4][4] = new Square("wall", false, false, false);
     }
 
     private void setFrame(){
@@ -91,14 +93,20 @@ public class Maze extends JFrame implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        //boolean complete = false;
+        boolean complete = false;
 
         if(e.getActionCommand().equals("Up")) {
             for (int i = 0; i < 5; i++) {
                 for (int j = 0; j < 5; j++) {
-                    if (squares[i][j].hasPlayer() && squares[i - 1][j].kind.equals("path")) {
-                        squares[i][j] = new Square("path", false, false);
-                        squares[i - 1][j] = new Square("path", false, true);
+                    if (squares[i][j].hasPlayer() && squares[i - 1][j].kind.equals("path")){
+                        if(squares[i - 1][j].hasKey()) foundKey = true;
+                        if(foundKey && squares[i - 1][j].isEnd){
+                            System.out.print("done");
+                            finish();
+                        }
+                        squares[i][j] = new Square("path", false, false, false);
+                        squares[i - 1][j] = new Square("path", false, true, false);
+                        complete = true;
                         break;
                     }
                 }
@@ -109,10 +117,16 @@ public class Maze extends JFrame implements ActionListener{
         }
         if(e.getActionCommand().equals("Down")){
             for (int i = 0; i < 5; i++) {
+                if(complete == false)
                 for (int j = 0; j < 5; j++) {
                     if (squares[i][j].hasPlayer() && squares[i + 1][j].kind.equals("path")) {
-                        squares[i][j] = new Square("path", false, false);
-                        squares[i + 1][j] = new Square("path", false, true);
+                        if(squares[i + 1][j].hasKey()) foundKey = true;
+                        if(foundKey && squares[i - 1][j].isEnd){
+                            finish();
+                        }
+                        squares[i][j] = new Square("path", false, false, false);
+                        squares[i + 1][j] = new Square("path", false, true, false);
+                        complete = true;
                         break;
                     }
                 }
@@ -125,8 +139,13 @@ public class Maze extends JFrame implements ActionListener{
             for (int i = 0; i < 5; i++) {
                 for (int j = 0; j < 5; j++) {
                     if (squares[i][j].hasPlayer() && squares[i][j-1].kind.equals("path")) {
-                        squares[i][j] = new Square("path", false, false);
-                        squares[i][j-1] = new Square("path", false, true);
+                        if(squares[i][j-1].hasKey()) foundKey = true;
+                        if(foundKey && squares[i - 1][j].isEnd){
+                            System.out.print("done");
+                            finish();
+                        }
+                        squares[i][j] = new Square("path", false, false, false);
+                        squares[i][j-1] = new Square("path", false, true, false);
                         break;
                     }
                 }
@@ -139,8 +158,12 @@ public class Maze extends JFrame implements ActionListener{
             for (int i = 0; i < 5; i++) {
                 for (int j = 0; j < 5; j++) {
                     if (squares[i][j].hasPlayer() && squares[i][j+1].kind.equals("path")) {
-                        squares[i][j] = new Square("path", false, false);
-                        squares[i][j+1] = new Square("path", false, true);
+                        if(squares[i][j+1].hasKey()) foundKey = true;
+                        if(foundKey && squares[i - 1][j].isEnd){
+                            finish();
+                        }
+                        squares[i][j] = new Square("path", false, false,false);
+                        squares[i][j+1] = new Square("path", false, true, false);
                         break;
                     }
                 }
@@ -149,5 +172,12 @@ public class Maze extends JFrame implements ActionListener{
             squarestomap();
             game.pack();
         }
+    }
+    public void finish(){
+        JPanel finishPane = new JPanel();
+        JLabel finishLabel = new JLabel("Game Over!");
+        finishPane.add(finishLabel);
+        game.add(finishPane);
+        game.repaint();
     }
 }

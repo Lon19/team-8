@@ -12,14 +12,16 @@ public class Square extends JPanel {
     private int j;
     private boolean isKey;
     private boolean isPlayer;
+    public boolean isEnd;
     private Maze map;
     public String kind;
 
     // Square Constructor containing the location of the square, the piece and the action listener
-    public Square(String kind, boolean isKey, boolean isPlayer){
+    public Square(String kind, boolean isKey, boolean isPlayer, boolean isEnd){
         this.isKey = isKey;
         this.isPlayer = isPlayer;
         this.kind = kind;
+        this.isEnd = isEnd;
         try {
             setBackground(kind);
         }
