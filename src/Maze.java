@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class Maze {
+public class Maze extends JFrame{
 
     private JFrame map;
 
@@ -15,8 +15,11 @@ public class Maze {
         for(int i = 0; i < 5; i++){
             for(int j = 0; j < 5; j++){
                 map.add(squares[i][j]);
+                map.repaint();
             }
         }
+        map.setVisible(true);
+       // squares.repaint();
     }
 
     private void setSquares(Square[][] squares){
