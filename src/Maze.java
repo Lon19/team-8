@@ -5,38 +5,40 @@ import java.awt.event.*;
 public class Maze extends JFrame{
 
     private JFrame game;
-    private JPanel map = new JPanel();
+    private JPanel map;
+    private JPanel controls;
 
     public Maze(){
         game = new JFrame();
-
+        map = new JPanel();
+        controls = new JPanel();
         Square[][] squares = new Square[5][5];
         setFrame(squares);
         setSquares(squares);
+        setControls();
 
        for(int i = 0; i < 5; i++){
             for(int j = 0; j < 5; j++){
                 map.add(squares[i][j]);
+            }
         }
+        game.pack();
         game.setVisible(true);
-        //squares.repaint();
+    }
 
-//        map.add(squares[0][0]);
-//        map.add(squares[0][1]);
-//        map.add(squares[1][0]);
-//        map.add(squares[0][3]);
-//        map.add(squares[0][4]);
-//        map.add(squares[1][0]);
-//        map.add(squares[2][0]);
-//        map.add(squares[3][0]);
-//        map.add(squares[4][0]);
-//        map.add(squares[4][0]);
-//        map.add(squares[4][0]);
-//        map.add(squares[4][0]);
-//        map.add(squares[4][0]);
-//        map.add(squares[4][0]);
-//        map.add(squares[4][0]);
-    }}
+    private void setControls(){
+        JButton up = new JButton("Up");
+        JButton down = new JButton("Down");
+        JButton left = new JButton("Left");
+        JButton right = new JButton("Right");
+
+        controls.setLayout(new GridLayout(4, 1));
+        controls.add(up);
+        controls.add(down);
+        controls.add(left);
+        controls.add(right);
+        game.add(controls);
+    }
 
     private void setSquares(Square[][] squares){
         squares[0][0] = new Square("wall", false, false);
@@ -70,14 +72,9 @@ public class Maze extends JFrame{
         game.setTitle("Amaze!");
         game.setLayout(new FlowLayout());
         game.setSize(1000,1000);
-       // map.setResizable(false);
         game.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
-        //map
-        //Container c = new Container();
         map.setLayout(new GridLayout(5, 5));
         setSquares(squares);
-        //c.add(map);
         game.add(map);
         //game.pack();
     }

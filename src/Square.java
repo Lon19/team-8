@@ -46,7 +46,7 @@ public class Square extends JPanel {
             this.setVisible(true);
         }
         else if(type.equals("path")){
-            this.setBackground(Color.orange);
+            this.setBackground(Color.lightGray);
         }
         else {
             System.out.print("blah");
