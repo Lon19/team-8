@@ -13,11 +13,13 @@ public class Square extends JPanel {
     private boolean isKey;
     private boolean isPlayer;
     private Maze map;
+    public String kind;
 
     // Square Constructor containing the location of the square, the piece and the action listener
     public Square(String kind, boolean isKey, boolean isPlayer){
         this.isKey = isKey;
         this.isPlayer = isPlayer;
+        this.kind = kind;
         try {
             setBackground(kind);
         }
@@ -29,6 +31,14 @@ public class Square extends JPanel {
 
     public boolean hasKey(){
         return isKey;
+    }
+
+    public boolean hasPlayer(){
+        return isPlayer;
+    }
+
+    public void setPlayer(boolean newValue){
+        isPlayer = newValue;
     }
 
     private void setBackground(String type) throws IOException {
@@ -49,7 +59,7 @@ public class Square extends JPanel {
             this.setBackground(Color.lightGray);
         }
         else {
-            System.out.print("blah");
+            //System.out.print("blah");
         }
 
         if(isPlayer){
