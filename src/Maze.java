@@ -9,7 +9,6 @@ public class Maze {
     public Maze(){
         map = new JFrame();
         setFrame();
-        setMaze();
         Square[][] squares = new Square[5][5];
         setSquares(squares);
 
@@ -46,18 +45,14 @@ public class Maze {
         squares[4][2] = new Square("wall", false, false);
         squares[4][3] = new Square("path", false, true);
         squares[4][4] = new Square("wall", false, false);
-
     }
 
     private void setFrame(){
         map.setTitle("Amaze!");
         map.setLayout(new GridLayout(5, 5));
-        map.setSize(1000,800);
-        map.setResizable(false);
+        map.setSize(1000,1000);
+       // map.setResizable(false);
         map.setVisible(true);
-    }
-
-    private void setMaze() {
-        JPanel panel = new JPanel();
+        map.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 }
